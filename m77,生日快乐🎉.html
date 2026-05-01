@@ -1,0 +1,636 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=1.0, user-scalable=no, viewport-fit=cover">
+    <title>🎉孟琪琪,生日快乐🎂</title>
+    <style>
+        * {
+            box-sizing: border-box;
+            margin: 0;
+            padding: 0;
+        }
+
+        html, body {
+            height: 100%;
+            margin: 0;
+            padding: 0;
+            background: radial-gradient(ellipse at center, #a27bcc 0%, #6c5299 100%);
+            font-family: "Comic Sans MS", "Brush Script MT", "Chalkboard SE", cursive, sans-serif;
+            overflow: hidden;
+            position: fixed;
+            width: 100%;
+        }
+
+        body {
+            display: flex;
+            justify-content: center;
+            align-items: center;
+            overflow: hidden;
+            position: relative;
+        }
+
+        .baloon {
+            height: calc(1.2 * var(--w));
+            width: var(--w);
+            border: 2px solid #000;
+            border-radius: 50% 50% 50% 50% / 45% 45% 55% 55%;
+            background: var(--c);
+            position: absolute;
+            top: 100%;
+            left: calc(var(--x) * 1%);
+            opacity: 0.85;
+            z-index: 1;
+            animation: up ease-in-out infinite;
+            animation-duration: calc(4s + var(--s) * 1s);
+            animation-delay: calc(var(--d) * -1s);
+        }
+
+        .baloon::before {
+            content: "";
+            position: absolute;
+            top: 0;
+            left: 4px;
+            height: 100%;
+            width: 90%;
+            border-left: calc(var(--w) * 0.15) solid #fff;
+            border-radius: inherit;
+            opacity: 0.25;
+        }
+
+        .baloon::after {
+            content: "";
+            position: absolute;
+            top: 100%;
+            left: 50%;
+            transform: translateX(-50%);
+            width: 2px;
+            height: calc(var(--w) * 0.4);
+            background: #000;
+            mix-blend-mode: difference;
+        }
+
+        .wishes-container {
+            position: relative;
+            z-index: 999;
+            text-align: center;
+            display: flex;
+            flex-direction: column;
+            align-items: center;
+            justify-content: center;
+            bottom: 18vh;
+        }
+
+        .wishes-container .name {
+            font-size: 8vw;
+            color: #000;
+            font-weight: bold;
+            text-shadow: 2px 2px 4px rgba(255, 255, 255, 0.5);
+            margin-bottom: 5px;
+        }
+
+        .wishes-container .greeting {
+            font-size: 6vw;
+            color: #000;
+            font-weight: bold;
+            text-shadow: 2px 2px 4px rgba(255, 255, 255, 0.5);
+        }
+
+        @media (prefers-color-scheme: dark) {
+            html, body {
+                background: radial-gradient(ellipse at center, #1a1a2e 0%, #0f0f23 100%);
+            }
+
+            .wishes-container .name {
+                color: #ffffff !important;
+                text-shadow: 2px 2px 8px rgba(0, 0, 0, 0.8), 0 0 20px rgba(255, 255, 255, 0.2);
+            }
+
+            .wishes-container .greeting {
+                color: #ffffff !important;
+                text-shadow: 2px 2px 8px rgba(0, 0, 0, 0.8), 0 0 20px rgba(255, 255, 255, 0.2);
+            }
+
+            .btn {
+                background: linear-gradient(45deg, #ff6b6b, #ff4757);
+                box-shadow: 0 4px 15px rgba(255, 71, 87, 0.6);
+            }
+
+            .cake {
+                filter: drop-shadow(0 0 20px rgba(255, 215, 0, 0.3));
+            }
+
+            .cake:after {
+                background: #2d2d2d;
+                box-shadow: 0 2px 10px rgba(0, 0, 0, 0.5);
+            }
+
+            .velas {
+                background: #ffffff;
+                box-shadow: 0 0 15px rgba(255, 255, 255, 0.4);
+            }
+
+            .velas:after,
+            .velas:before {
+                background: rgba(255, 215, 0, 0.6);
+                box-shadow: 0 0 5px rgba(255, 215, 0, 0.3);
+            }
+
+            .fuego {
+                background: radial-gradient(circle, rgba(255, 200, 50, 1) 0%, rgba(255, 100, 0, 0.8) 40%, rgba(255, 50, 0, 0) 70%);
+                filter: drop-shadow(0 0 8px rgba(255, 150, 0, 0.8));
+            }
+
+            .cobertura {
+                background: linear-gradient(180deg, #8B4513 0%, #654321 100%);
+                box-shadow: 0 4px 6px rgba(0, 0, 0, 0.3), inset 0 2px 4px rgba(255, 255, 255, 0.1);
+            }
+
+            .cobertura:after,
+            .cobertura:before {
+                background: linear-gradient(180deg, #A0522D 0%, #8B4513 100%);
+            }
+
+            .bizcocho {
+                background: linear-gradient(180deg, #4a2c17 0%, #3b2313 100%);
+                box-shadow: inset 0 2px 4px rgba(255, 255, 255, 0.05);
+            }
+
+            .bizcocho:after,
+            .bizcocho:before {
+                background: rgba(255, 248, 220, 0.15);
+            }
+
+            .alert-box {
+                background: #2c2c3e;
+                box-shadow: 0 20px 50px rgba(0, 0, 0, 0.8);
+            }
+
+            .alert-message {
+                color: #e0e0e0;
+            }
+
+            .alert-btn {
+                background: linear-gradient(45deg, #ff6b6b, #ff4757);
+                box-shadow: 0 4px 12px rgba(255, 71, 87, 0.6);
+            }
+        }
+
+        @keyframes up {
+            0% { top: 100%; transform: translateX(0); }
+            100% { top: -60%; transform: translateX(calc(var(--m) * 15px)); }
+        }
+
+        .btn {
+            position: fixed;
+            bottom: 9vh;
+            left: 50%;
+            transform: translateX(-50%);
+            z-index: 9999;
+            padding: 14px 28px;
+            font-size: 4.5vw;
+            white-space: nowrap;
+            min-width: 200px;
+            max-width: 85%;
+            border-radius: 50px;
+            border: none;
+            background: linear-gradient(45deg, #ff0040, #ff4040);
+            color: white;
+            box-shadow: 0 4px 15px rgba(255, 0, 64, 0.4);
+            transition: transform 0.1s ease;
+            cursor: pointer;
+            font-family: "Comic Sans MS", "Brush Script MT", "Chalkboard SE", cursive, sans-serif;
+        }
+
+        .btn:active {
+            transform: translateX(-50%) scale(0.95);
+        }
+
+        canvas {
+            position: fixed;
+            top: 0;
+            left: 0;
+            width: 100%;
+            height: 100%;
+            background: transparent;
+            z-index: 100000;
+            pointer-events: none;
+        }
+
+        .alert-overlay {
+            position: fixed;
+            top: 0;
+            left: 0;
+            width: 100%;
+            height: 100%;
+            background: rgba(0, 0, 0, 0.5);
+            z-index: 999999;
+            display: flex;
+            justify-content: center;
+            align-items: center;
+            opacity: 0;
+            transition: opacity 0.15s ease;
+            pointer-events: none;
+        }
+
+        .alert-overlay.show {
+            opacity: 1;
+            pointer-events: auto;
+        }
+
+        .alert-box {
+            background: white;
+            border-radius: 16px;
+            padding: 24px 20px 18px;
+            text-align: center;
+            max-width: 75vw;
+            min-width: 250px;
+            box-shadow: 0 20px 50px rgba(0, 0, 0, 0.4);
+            transform: scale(0.7);
+            transition: transform 0.2s cubic-bezier(0.175, 0.885, 0.32, 1.275);
+        }
+
+        .alert-overlay.show .alert-box {
+            transform: scale(1);
+        }
+
+        .alert-message {
+            font-size: 18px;
+            color: #333;
+            margin-bottom: 20px;
+            line-height: 1.5;
+            white-space: pre-line;
+            font-family: "Comic Sans MS", "Brush Script MT", "Chalkboard SE", cursive, sans-serif;
+        }
+
+        .alert-btn {
+            display: inline-block;
+            padding: 10px 40px;
+            background: linear-gradient(45deg, #ff0040, #ff4040);
+            color: white;
+            border: none;
+            border-radius: 25px;
+            font-size: 16px;
+            font-weight: bold;
+            cursor: pointer;
+            font-family: "Comic Sans MS", "Brush Script MT", "Chalkboard SE", cursive, sans-serif;
+            box-shadow: 0 4px 12px rgba(255, 0, 64, 0.3);
+            transition: transform 0.1s ease;
+        }
+
+        .alert-btn:active {
+            transform: scale(0.95);
+        }
+
+        .cake {
+            position: absolute;
+            top: 46%;
+            left: 50%;
+            width: 80vmin;
+            height: 80vmin;
+            max-width: 500px;
+            max-height: 500px;
+            min-width: 280px;
+            min-height: 280px;
+            transform: translate(-50%, -50%);
+            margin-left: 0;
+            margin-top: 0;
+            z-index: 99999;
+            animation: cakeAppear 1.5s ease-out forwards;
+            opacity: 0;
+        }
+
+        @keyframes cakeAppear {
+            0% {
+                opacity: 0;
+                transform: translate(-50%, -50%) translateY(30px);
+            }
+            100% {
+                opacity: 1;
+                transform: translate(-50%, -50%) translateY(0);
+            }
+        }
+
+        .cake:after {
+            background: #ebe3e1;
+            border-radius: 100px;
+            content: "";
+            position: absolute;
+            bottom: 0;
+            left: 0;
+            width: 100%;
+            height: 2%;
+        }
+
+        .velas {
+            background: #ffffff;
+            border-radius: 100%;
+            position: absolute;
+            top: 50%;
+            left: 50%;
+            width: 18px;
+            height: 58px;
+            margin-left: -9px;
+            margin-top: -29px;
+        }
+
+        .velas:after,
+        .velas:before {
+            background: rgba(255, 0, 0, 0.4);
+            content: "";
+            position: absolute;
+            width: 100%;
+            height: 8px;
+        }
+        .velas:after { top: 25%; left: 0; }
+        .velas:before { top: 45%; left: 0; }
+
+        .fuego {
+            border-radius: 100%;
+            position: absolute;
+            top: -42px;
+            left: 50%;
+            width: 23px;
+            height: 44px;
+            margin-left: -12px;
+            background: radial-gradient(circle, rgba(254,248,97,1) 0%, rgba(255,100,0,0) 70%);
+            will-change: transform, opacity;
+        }
+
+        .fuego:nth-child(1) { animation: fuego 2s infinite; }
+        .fuego:nth-child(2) { animation: fuego 1.5s infinite; }
+        .fuego:nth-child(3) { animation: fuego 1s infinite; }
+        .fuego:nth-child(4) { animation: fuego 0.5s infinite; }
+        .fuego:nth-child(5) { animation: fuego 0.2s infinite; }
+
+        @keyframes fuego {
+            0% {
+                opacity: 1;
+                transform: translateY(0) scale(1);
+            }
+            50% {
+                opacity: 0.3;
+                transform: translateY(-14px) scale(0.6);
+            }
+            100% {
+                opacity: 1;
+                transform: translateY(0) scale(1);
+            }
+        }
+
+        .cobertura {
+            background: #ece7e3;
+            border-radius: 50px;
+            position: absolute;
+            top: 60%;
+            left: 50%;
+            width: 55.555%;
+            height: 12.5%;
+            margin-left: -27.777%;
+            margin-top: -5%;
+            z-index: 10;
+        }
+
+        .cobertura:after,
+        .cobertura:before {
+            background: #ece7e3;
+            border-radius: 100px;
+            content: "";
+            position: absolute;
+            width: 9%;
+            height: 80%;
+        }
+        .cobertura:after { top: 53%; right: 25.714%; }
+        .cobertura:before { top: 80%; right: 16.363%; }
+
+        .bizcocho {
+            background: #6d3826;
+            position: absolute;
+            bottom: 0;
+            left: 50%;
+            width: 50%;
+            height: 33.333%;
+            margin-left: -25%;
+        }
+
+        .bizcocho:after,
+        .bizcocho:before {
+            background: rgba(236, 231, 227, 0.6);
+            content: "";
+            position: absolute;
+            width: 100%;
+            height: 15%;
+        }
+        .bizcocho:after { top: 30%; left: 0; }
+        .bizcocho:before { top: 60%; left: 0; }
+
+        @media (max-width: 480px) {
+            .wishes-container {
+                bottom: 21vh;
+            }
+            .wishes-container .name {
+                font-size: 10vw;
+            }
+            .wishes-container .greeting {
+                font-size: 7.5vw;
+            }
+            .btn {
+                font-size: 5.5vw;
+                padding: 12px 22px;
+                bottom: 8vh;
+            }
+            .alert-message {
+                font-size: 16px;
+            }
+            .alert-btn {
+                font-size: 15px;
+                padding: 10px 36px;
+            }
+        }
+    </style>
+</head>
+<body>
+
+    <div class="baloon" style="--w:45px; --x:8;  --d:1.2; --s:2; --m:-2; --c:linear-gradient(45deg, #ff0000, #ff4d4d)"></div>
+    <div class="baloon" style="--w:53px; --x:17; --d:0.5; --s:3; --m:+3; --c:linear-gradient(45deg, #ff0040, #ff6699)"></div>
+    <div class="baloon" style="--w:49px; --x:31; --d:2.1; --s:2; --m:-1; --c:linear-gradient(45deg, #dc143c, #ff4040)"></div>
+    <div class="baloon" style="--w:58px; --x:44; --d:0.8; --s:4; --m:+2; --c:linear-gradient(45deg, #ff2400, #ff6633)"></div>
+    <div class="baloon" style="--w:42px; --x:56; --d:1.7; --s:3; --m:-3; --c:linear-gradient(45deg, #ff1493, #ff69b4)"></div>
+    <div class="baloon" style="--w:55px; --x:69; --d:0.3; --s:2; --m:+1; --c:linear-gradient(45deg, #ff0000, #ff3333)"></div>
+    <div class="baloon" style="--w:47px; --x:82; --d:2.4; --s:4; --m:-2; --c:linear-gradient(45deg, #ff4500, #ff751a)"></div>
+    <div class="baloon" style="--w:51px; --x:93; --d:1.1; --s:3; --m:+3; --c:linear-gradient(45deg, #ff0055, #ff4d88)"></div>
+    <div class="baloon" style="--w:44px; --x:25; --d:0.6; --s:2; --m:-1; --c:linear-gradient(45deg, #ff3300, #ff6666)"></div>
+    <div class="baloon" style="--w:56px; --x:75; --d:1.9; --s:4; --m:+2; --c:linear-gradient(45deg, #ff0033, #ff6680)"></div>
+    <div class="baloon" style="--w:50px; --x:12; --d:0.9; --s:3; --m:-3; --c:linear-gradient(45deg, #ff1a1a, #ff6666)"></div>
+    <div class="baloon" style="--w:46px; --x:88; --d:1.5; --s:2; --m:+1; --c:linear-gradient(45deg, #ff5050, #ff0066)"></div>
+
+    <div class="wishes-container">
+        <div class="name">孟琪琪</div>
+        <div class="greeting">Happy Birthday</div>
+    </div>
+
+    <div class="cake">
+        <div class="velas">
+            <div class="fuego"></div>
+            <div class="fuego"></div>
+            <div class="fuego"></div>
+            <div class="fuego"></div>
+            <div class="fuego"></div>
+        </div>
+        <div class="cobertura"></div>
+        <div class="bizcocho"></div>
+    </div>
+
+    <button class="btn" onclick="showBlessing()">点击这里🎂</button>
+
+    <div class="alert-overlay" id="alertOverlay">
+        <div class="alert-box">
+            <div class="alert-message" id="alertMessage"></div>
+            <button class="alert-btn" onclick="closeAlert()">好</button>
+        </div>
+    </div>
+
+    <canvas id="canvas"></canvas>
+
+    <script>
+        const blessings = [
+            "孟琪琪，祝你生日快乐🎂",
+            "愿你每天都充满阳光和欢笑✨",
+            "愿你所有梦想都成真🌟",
+            "永远美丽，永远开心❤",
+            "给时间时间,让过去过去🐱",
+            "又是一年春暖花开,珍惜当下,17岁生日可不是年年有🎉",
+            "祝你生日快乐~\nHappy birthday to you~🎵\n(此处有music)",
+            "可以尝试一下一口蛋糕一口火鸡面🔥",
+            "生日快乐，天天快乐！🎉"
+        ];
+
+        let remainingBlessings = [];
+
+        function resetBlessings() {
+            remainingBlessings = [...blessings];
+        }
+        resetBlessings();
+
+        function showBlessing() {
+            if (remainingBlessings.length === 0) {
+                resetBlessings();
+            }
+            const randomIndex = Math.floor(Math.random() * remainingBlessings.length);
+            const chosenBlessing = remainingBlessings[randomIndex];
+            
+            document.getElementById('alertMessage').textContent = chosenBlessing;
+            document.getElementById('alertOverlay').classList.add('show');
+            
+            remainingBlessings.splice(randomIndex, 1);
+        }
+
+        function closeAlert() {
+            document.getElementById('alertOverlay').classList.remove('show');
+        }
+
+        document.getElementById('alertOverlay').addEventListener('click', function(e) {
+            if (e.target === this) {
+                closeAlert();
+            }
+        });
+
+        const canvas = document.getElementById('canvas');
+        const ctx = canvas.getContext('2d');
+
+        function resizeCanvas() {
+            canvas.width = window.innerWidth;
+            canvas.height = window.innerHeight;
+        }
+        resizeCanvas();
+        window.addEventListener('resize', resizeCanvas);
+
+        class Particle {
+            constructor(x, y, color) {
+                this.x = x;
+                this.y = y;
+                this.color = color;
+                this.radius = Math.random() * 2 + 1.5;
+                this.alpha = 1;
+                const angle = Math.random() * Math.PI * 2;
+                const baseSpeedPerFrame = Math.random() * 4 + 2;
+                const speed = baseSpeedPerFrame * 60;
+                this.vx = Math.cos(angle) * speed;
+                this.vy = Math.sin(angle) * speed;
+                this.gravity = 0.04 * 60 * 60;
+                this.friction = Math.pow(0.97, 60);
+                this.fadeOut = 0.018 * 60;
+            }
+
+            update(deltaTime) {
+                this.vx *= Math.pow(this.friction, deltaTime);
+                this.vy *= Math.pow(this.friction, deltaTime);
+                this.vy += this.gravity * deltaTime;
+                this.x += this.vx * deltaTime;
+                this.y += this.vy * deltaTime;
+                this.alpha -= this.fadeOut * deltaTime;
+                if (this.alpha < 0) this.alpha = 0;
+            }
+
+            draw() {
+                ctx.save();
+                ctx.globalAlpha = this.alpha;
+                ctx.beginPath();
+                ctx.arc(this.x, this.y, this.radius, 0, Math.PI * 2);
+                ctx.fillStyle = this.color;
+                ctx.fill();
+                ctx.restore();
+            }
+        }
+
+        let particles = [];
+
+        function createFirework(x, y) {
+            const colors = ['#ff0043', '#ff2222', '#ff0000', '#ffcc00', '#ff6600'];
+            if (particles.length > 300) {
+                particles.splice(0, 50);
+            }
+            for (let i = 0; i < 50; i++) {
+                particles.push(new Particle(x, y, colors[Math.floor(Math.random() * colors.length)]));
+            }
+        }
+
+        let lastTimestamp = 0;
+
+        function animate(timestamp) {
+            requestAnimationFrame(animate);
+
+            if (!lastTimestamp) lastTimestamp = timestamp;
+            let deltaTime = (timestamp - lastTimestamp) / 1000;
+            if (deltaTime > 0.1) deltaTime = 0.1;
+            lastTimestamp = timestamp;
+
+            ctx.clearRect(0, 0, canvas.width, canvas.height);
+            particles = particles.filter(p => p.alpha > 0);
+            particles.forEach(p => {
+                p.update(deltaTime);
+                p.draw();
+            });
+        }
+        requestAnimationFrame(animate);
+
+        function triggerFirework(e) {
+            if (document.getElementById('alertOverlay').classList.contains('show')) {
+                return;
+            }
+            let x, y;
+            if (e.type === 'touchstart') {
+                x = e.touches[0].clientX;
+                y = e.touches[0].clientY;
+            } else {
+                x = e.clientX;
+                y = e.clientY;
+            }
+            createFirework(x, y);
+        }
+
+        document.body.addEventListener('click', triggerFirework);
+        document.body.addEventListener('touchstart', triggerFirework);
+    </script>
+</body>
+</html>
